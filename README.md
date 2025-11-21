@@ -1,2 +1,2 @@
-# Program-2-Genetic-Algorithm
-Second programming project for Introduction to Artificial Intelligence, implementing Genetic Algorithms
+# Genetic Algorithm Program Implementation
+Work in Progress, for now on Private until otherwise

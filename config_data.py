@@ -12,5 +12,6 @@ OUTPUT_FILE = "schedule_output.txt"
 """Definitions following Appendix A"""
 ACTIVITIES = {
     "SLA101A" : {"enrollment": 40, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]}, 
-    "SLA101B" : {"enrollment" : 35, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]}
+    "SLA101B" : {"enrollment" : 35, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]},
+    "SLA191A" : {"enrollment"}
 }

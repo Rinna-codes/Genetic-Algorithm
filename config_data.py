@@ -13,5 +13,5 @@ OUTPUT_FILE = "schedule_output.txt"
 ACTIVITIES = {
     "SLA101A" : {"enrollment": 40, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]}, 
     "SLA101B" : {"enrollment" : 35, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]},
-    "SLA191A" : {"enrollment"}
+    "SLA191A" : {"enrollment": }
 }

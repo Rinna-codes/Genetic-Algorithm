@@ -16,6 +16,7 @@ class Schedule:
             self.genes[activity] = (r, t, f)  # assign into the randomly generated tuple 
     
     def __str__(self):
+        """Print out the schedule output"""
         lines = []
         # format the output information
         lines.append(f"{"Activity" : < 10} | {"Room" : < 12} | {"Time" : < 6} | {"Faciltator"}") # put into lines to display
@@ -27,3 +28,19 @@ class Schedule:
         for acts, (r, t, f) in sort_genes:
             lines.append(f"{acts:<10} | {r:<12} | {t:<6} | {f}")
         return "\n".join(lines)
+
+def get_room_capacity(enrollment, capacity):
+    """Calulates the score based on the room size"""
+    used_space_rate = enrollment / capacity 
+    if capacity < enrollment: 
+        return -0.5
+    elif used_space_rate >= 0.83:
+        return +0.8
+    elif used_space_rate >= 0.75:
+        return +0.5
+    elif used_space_rate >= 0.67:
+        return +0.2
+    elif used_space_rate >= 0.58:
+        return -0.3
+    else:
+        return -0.6

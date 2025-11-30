@@ -23,3 +23,15 @@ ACTIVITIES = {
     "SLA449" : {"enrollment" : 30, "prefer" : ["Tyler", "Zeldin", "Uther"], "others" : ["Zeldin", "Shaw"]},
     "SLA451" : {"enrollment" : 90, "prefer" : ["Lock", "Banks", "Zeldin"], "others" : ["Tyler", "Singer", "Shaw", "Glen"]}
 }
+
+ROOMS = {
+    "Beach 201" : {"capacity" : 18, "lab" : False, "projector" : True, "grouping" : True},
+    "Beach 301" : {"capacity" : 25, "lab" : True, "projector" : True, "grouping" : True},
+    "Frank 119" : {"capacity" : 95, "lab" : True, "projector" : True, "grouping" : False},
+    "Loft 206" : {"capacity" : 55, "lab" : False, "projector" : False, "grouping" : False},
+    "Loft 310" : {"capacity" : 48, "lab" : True, "projector" : False, "grouping" : False},
+    "James 325" : {"capacity" : 110, "lab" : True, "projector" : True, "grouping" : False},
+    "Roman 201" : {"capacity" : 40, "lab" : False, "projector" : False, "grouping" : True},
+    "Roman 216" : {"capacity" : 80, "lab" : True, "projector" : True, "grouping" : True},
+    "Slatter 003" : {"capacity" : 32, "lab" : True, "projector": True, "grouping" : False}
+}

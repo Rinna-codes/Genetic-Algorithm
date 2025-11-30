@@ -44,3 +44,52 @@ def get_room_capacity(enrollment, capacity):
         return -0.3
     else:
         return -0.6
+
+def fitness_function(schedule, detail=False):
+    score = 0.0 # intitial start
+    genes = schedule.genes
+    if detail: schedule.explain = [] # if true then clear the explain attribute into am empty list 
+
+    def log(message, value):
+        """Accumlate the fitness score & log records of how score was reached"""
+        nonlocal score
+        score += value 
+        if detail: schedule.explain.append(f"{value:+.2f}: {message}") 
+    room_time_map = {}
+    fac_time_map = {}
+    fac_total_load = {f: 0 for f in FACILTATORS} # tracks the total workload for each faciltator 
+    fac_schedule  = {f: [] for f in FACILTATORS} # store the activites and time slots to specific faciltator 
+
+    for acts, (r, t, f) in genes.items():
+        time_index = TIME_MAP[t] 
+
+        # populate the conflict maps 
+        room_time_map.setdefault((r, t), []).append(acts) # any room key has more than on activity, raises room conflict
+        fac_time_map.setdefault((f, t), []).append(acts) # any facilitator room key has more than one activity, raise faciltator conflict 
+
+        # populate load maps
+        fac_total_load[f] += 1
+        fac_schedule[f].append({"Time Index" : time_index, "Room" : r, "Activity" : acts})
+
+    for act, (r, t, f) in genes.items():
+        # Takes care of room conflicts 
+        if len(room_time_map[r, t]) > 1:
+            log(f"Room Conflicts: {acts} shares a room {r} at {t}", -0.5)
+
+        # Room Size
+        capacity = ROOMS[r]['capacity']
+        enrollment = ACTIVITIES[act]["enrollment"]
+        size_score = get_room_capacity(enrollment, capacity)
+        log(f"{act} room size in {r} ({capacity} vs {enrollment})", size_score)
+
+        # Takes care of faciltators conflicts
+        preferred = ACTIVITIES[act]['prefer']
+        other = ACTIVITIES[act].get("others")
+
+        if f in preferred:
+            log(f"{act} overseen by preferred {f}", +0.5)
+        elif f in other:
+            log(f"{act} overseen by other listed {f}", +0.2)
+        else:
+            log(f"{act} overseen by unlisted {f}", -0.1)
+            

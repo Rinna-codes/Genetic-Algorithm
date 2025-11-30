@@ -35,3 +35,9 @@ ROOMS = {
     "Roman 216" : {"capacity" : 80, "lab" : True, "projector" : True, "grouping" : True},
     "Slatter 003" : {"capacity" : 32, "lab" : True, "projector": True, "grouping" : False}
 }
+
+ROOM_NAMES = list(ROOMS.keys()) # Turns the dictionary keys into a list
+TIME = ["10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM"]
+TIME_MAP = {time: index for index, time in enumerate(TIME)} # Number indexes the times
+FACILTATORS = ["Lock", "Glen", "Banks", "Richards", "Shaw", "Singer", "Uther", "Tyler", "Numen", "Zeldin"]
+

@@ -41,3 +41,20 @@ TIME = ["10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM"]
 TIME_MAP = {time: index for index, time in enumerate(TIME)} # Number indexes the times
 FACILTATORS = ["Lock", "Glen", "Banks", "Richards", "Shaw", "Singer", "Uther", "Tyler", "Numen", "Zeldin"]
 
+# Equipment Requirements : {Acivity Name: (Needs a lab, Needs a projector)}
+EQUIPMENT_REQ = {
+    "SLA304" : (True, False),
+    "SLA303" : (True, True),
+    "SLA191" : (True, False),
+    "SLA291" : (True, False),
+    "SLA449" : (False, True),
+    "SLA451" : (True, True)
+}
+
+# The faciltators Time Slot preferences 
+FAC_TIME_PREFS = {
+    "Glen" : {"likes" : ["10 AM", "11 AM"], "avoid" : ["3 PM"]},
+    "Banks" : {"likes" : ["10 AM", "12 PM"], "avoid" : ["11 AM", "1 PM"]},
+    "Tyler" : {"likes" : ["2 PM", "3 PM"], "avoid" : ["10 AM", "11 AM"]},
+    "Singer" : {"avoid" : ["12 PM"]}
+}

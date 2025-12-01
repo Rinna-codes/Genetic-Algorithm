@@ -1,4 +1,5 @@
 import random
+import math
 from config_data import ACTIVITIES, ROOMS, ROOM_NAMES, TIME, TIME_MAP, FACILTATORS, EQUIPMENT_REQ, FAC_TIME_PREFS
 
 class Schedule:
@@ -46,6 +47,8 @@ def get_room_capacity(enrollment, capacity):
         return -0.6
 
 def fitness_function(schedule, detail=False):
+    """Calculates and sets the the fitness score that is based on Appendix A from Instructions"""
+
     score = 0.0 # intitial start
     genes = schedule.genes
     if detail: schedule.explain = [] # if true then clear the explain attribute into am empty list 
@@ -196,7 +199,7 @@ def fitness_function(schedule, detail=False):
                 in_rb_2 = ROOMS[r191]['grouping']
                 if in_rb_1 != in_rb_2:
                     log(f"{act1}/{act2} consecutive distance issue ({r101}->{r191})", -0.4)
-                    
+
             elif diff == 2: # Separated by 1 hour
                 log(f"{act1}/{act2} separated by 1 hr", +0.25)
             elif diff == 0: # Same time
@@ -205,8 +208,40 @@ def fitness_function(schedule, detail=False):
 
 """Genetic Algorithm Operations"""
 
-def softmax_selection(population, num_parents=2):
-    pass
+def softmax_selection(population, num_parents=2): # Aka Roulette Wheel
+    """Picks parents using the Softmax normalization"""
+
+    min_fit = min(ind.fitness for ind in population)
+    shift = (0.1 - min_fit) if min_fit <= 0 else 0
+    
+    fitnesses = [(ind.fitness + shift) for ind in population]
+    max_fit = max(fitnesses) 
+    
+    exp_values = [math.exp(f - max_fit) for f in fitnesses]
+    total_exp = sum(exp_values)
+    
+    if total_exp < 1e-9:
+        probs = [1.0 / len(population)] * len(population)
+    else:
+        probs = [e / total_exp for e in exp_values]
+    
+    total_probs = []
+    current = 0.0
+    for p in probs:
+        current += p
+        total_probs.append(current)
+        
+    parents = []
+    for _ in range(num_parents):
+        r = random.random()
+        for i, threshold in enumerate(total_probs):
+            if r <= threshold:
+                parents.append(population[i])
+                break
+        else:
+            parents.append(population[-1]) 
+            
+    return parents
 
 def crossover(parent1, parent2):
     pass

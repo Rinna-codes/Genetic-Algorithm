@@ -249,7 +249,7 @@ def crossover(parent1, parent2):
     for act in ACTIVITIES: 
         if random.random() < 0.5:
             child.genes[act] = parent1.genes[act]
-        else;
+        else:
             child.genes[act] = parent2.genes[act]
     return child
 

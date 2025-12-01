@@ -244,7 +244,13 @@ def softmax_selection(population, num_parents=2): # Aka Roulette Wheel
     return parents
 
 def crossover(parent1, parent2):
-    pass
+    child = Schedule()
+    for act in ACTIVITIES: 
+        if random.random() < 0.5:
+            child.genes[act] = parent1.genes[act]
+        else;
+            child.genes[act] = parent2.genes[act]
+    return child
 
 def mutate(schedule, rate):
     pass

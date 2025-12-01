@@ -244,6 +244,7 @@ def softmax_selection(population, num_parents=2): # Aka Roulette Wheel
     return parents
 
 def crossover(parent1, parent2):
+    """Performs unifrom crossover"""
     child = Schedule()
     for act in ACTIVITIES: 
         if random.random() < 0.5:
@@ -253,4 +254,22 @@ def crossover(parent1, parent2):
     return child
 
 def mutate(schedule, rate):
-    pass
+    for act in ACTIVITIES:
+        if random.random() < rate:
+            r_select = random.random()
+            current_r, current_t, current_f = schedule.genes[act]
+
+            if r_select < 0.33:
+                # Mutate the room
+                new_r = random.choice(ROOM_NAMES)
+                schedule.genes[act] = (new_r, current_t, current_f)
+            
+            elif r_select < 0.66:
+                # Mutate time 
+                new_t = random.choice(TIME)
+                schedule.genes[act] = (current_r, new_t, current_f)
+
+            else:
+                # Mutate faciltator
+                new_f = random.choice(FACILTATORS)
+                schedule.genes[act] = (current_r, current_t, new_f)

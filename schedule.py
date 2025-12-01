@@ -92,4 +92,74 @@ def fitness_function(schedule, detail=False):
             log(f"{act} overseen by other listed {f}", +0.2)
         else:
             log(f"{act} overseen by unlisted {f}", -0.1)
-            
+        
+        # Single Slot for Faciltator Time Slot 
+        slot_load = len(fac_time_map[(f, t)])
+        if slot_load == 1:
+            log(f"{f} has only 1 activity at {t}", +0.2)
+        else:
+            log(f"{f} double booked at {t} for {slot_load} activites", -0.2)
+        
+        # Facilitators Time Slot Preferences 
+        if f in FAC_TIME_PREFS:
+            prefs = FAC_TIME_PREFS[f]
+
+            if t in prefs.get("likes", []):
+                log(f"Faciltator {f} time preference matches at {t}", +0.1)
+            elif t in prefs.get("avoid", []):
+                penalty = -0.1 if f == "Banks" else -0.3 if f == "Singer" else -0.2
+                log(f"Faciltator {f} avoiding {t}", penalty)
+        
+        # Equipment Requirements 
+        req_key = act
+        if act in ["SLA191A", "SLA191B"]:
+            req_key = "SLA191"
+
+        if req_key in EQUIPMENT_REQ:
+            need_lab = need_proj = EQUIPMENT_REQ[req_key]
+            has_lab = ROOMS[r]["lab"]
+            has_proj = ROOMS[r]["projector"]
+
+            labs_met = need_lab == has_lab
+            proj_met = need_proj == has_proj
+
+            if labs_met and proj_met:
+                log(f"{act} equipment in {r}", +0.2)
+            elif (need_lab != has_lab) or (need_proj and has_proj):
+                if need_lab != has_lab or need_proj != has_proj:
+                    log(f"{act} only one equipment requirement met in {r}" -0.1)
+            else:
+                log(f"{act} equipment not met in {r}", -0.3)
+    for f in FACILTATORS:
+        load = fac_total_load[f]
+
+        # Total Load
+        if load > 4:
+            log(f"Faciltator {f} overloaded (total {load})", -0.5)
+        
+        # Total Load Less than 3
+        if f == "Tyler":
+            if load < 2:
+                log(f"Faciltator {f} load {load} (Tyler exception was met)", 0.0)
+            elif load < 3: 
+                log(f"Faciltator {f} underloaded (total {load})", -0.4)
+            elif load < 3:
+                log(f"Faciltator {f} underloaded (total {load})", -0.4)
+        
+        # Takes care of Time Slots Logic
+        fsched = sorted(fac_schedule[f], ket=lambda x: x["Time Index"])
+        for i in range(len(fsched)-1):
+            t1_index = fsched[i]["Time Index"]
+            t2_index = fsched[i+1]["Time Index"]
+            r1 = fsched[i]["Room"]
+            r2 = fsched[i+1]["Room"]
+        
+        # Checks 
+        if abs(t1_index - t2_index) ==1: 
+            log(f"Faciltator {f} consecutive slots between {fsched[i]["activity"]} and {fsched[i+1]["activity"]}", +0.5)
+
+            # Distance Check (Roman/Beach logic)
+            in_rb_1 = ROOMS[r1]['grouping'] # Updated key
+            in_rb_2 = ROOMS[r2]['grouping'] # Updated key
+            if in_rb_1 != in_rb_2:
+                log(f"Facilitator {f} consecutive distance issue ({r1}->{r2})", -0.4)

@@ -95,4 +95,20 @@ def main():
     
     population = next_generation
 
-    
+    # Saving the report 
+    population.sort(key=lambda x: x.fitness, reverse=True)
+    final_best = population[0]
+
+    # claculate the best schdeule 
+    fitness_function(final_best, detail=True)
+
+    print_chart(best_history, avg_history, worst_history)
+
+    print("\n" + "=" * 30)
+    print("FINAL BEST SCHEDULE")
+    print("=" * 30)
+    print(final_best)
+    print(f"\nFINAL FITNESS: {final_best.fitness:.2f}")
+
+    save_report(final_best, best_history, avg_history, worst_history)
+

@@ -163,3 +163,41 @@ def fitness_function(schedule, detail=False):
             in_rb_2 = ROOMS[r2]['grouping'] # Updated key
             if in_rb_1 != in_rb_2:
                 log(f"Facilitator {f} consecutive distance issue ({r1}->{r2})", -0.4)
+    def get_act_data(name):
+        """Retrieves the room and time data in genes"""
+        return genes[name][0], TIME_MAP[[genes][name][1]]
+    
+    r101A, t101A = get_act_data("SLA101A")
+    r101B, t101B = get_act_data("SLA101B")
+    r191A, t191A = get_act_data("SLA191A")
+    r191B, t191B = get_act_data("SLA191B")
+    
+    # 101 x 191 
+    if abs(t101A - t101B) > 3: log(f"SLA 101 section > 4 hours apart", +0.5)
+    if t101A == t101B: log(f"SLA 101 sections same time", -0.5)
+
+    # 191 A X 191 B
+    if abs(t191A - t191B) > 3: log(f"SLA 191 sections > 4 hours apart", +0.5)
+    if t191A == t191B: log(f"SLA 1919 sections same time", -0.5)
+
+    # Cross checks (over the 101 adn 191 sections)
+    s101S = [("SLA101A", r101A, t101A), ("SLA101A", r101B, t101B)]
+    s191S = [("SLA191A", r191A, t191A), {"SLA191B", r191B, t191B}]
+
+    for (act1, r101, t101) in s101S:
+        for (act2, r191, t191) in s191S:
+            diff = abs(t101 - t191)
+
+            if diff == 1:
+                log(f"{act1}/{act2} consecutive slots", +0.5)
+
+            # Distance Check (Roman/Beach Logic)
+            in_rb_1 = ROOMS[r101]['grouping'] # Updated key
+            in_rb_2 = ROOMS[r191]['grouping'] # Updated key
+            if in_rb_1 != in_rb_2:
+                log(f"{act1}/{act2} consecutive distance issue ({r101}->{r191})", -0.4)
+            elif diff == 2: # Separated by 1 hour
+                log(f"{act1}/{act2} separated by 1 hr", +0.25)
+            elif diff == 0: # Same time
+                log(f"{act1}/{act2} same time", -0.25)
+    return score

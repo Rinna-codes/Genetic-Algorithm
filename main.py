@@ -32,7 +32,7 @@ def main():
     # Genetic algorithm loop
     for gen in range(MAX_GEN):
         #sorting the easy or elite metrics
-        population.srt(key=lambda x: x.fitness, reverse=True)
+        population.sort(key=lambda x: x.fitness, reverse=True)
 
         best = population[0].fitness
         worst = population[-1].fitness
@@ -112,3 +112,5 @@ def main():
 
     save_report(final_best, best_history, avg_history, worst_history)
 
+if __name__ == "__main__":
+    main()

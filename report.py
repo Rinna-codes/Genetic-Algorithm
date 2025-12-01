@@ -43,9 +43,9 @@ def print_chart(best_history, avg_history, worst_history):
         norm_a = normal(avg_history[index])
         norm_w = normal(worst_history[index])
 
-        row_b = max(0, min(height-1), int(norm_b * (height-1)))
-        row_a = max(0, min(height-1), int(norm_a * (height-1)))
-        row_w = max(0, min(height-1), int(norm_w * (height-1)))
+        row_b = max(0, min(height - 1, int(norm_b * (height - 1))))
+        row_a = max(0, min(height - 1, int(norm_a * (height - 1))))
+        row_w = max(0, min(height - 1, int(norm_w * (height - 1))))
 
         # plotting for best, average, and worst 
         grid[height - 1 - row_w][col] = "-"
@@ -55,8 +55,8 @@ def print_chart(best_history, avg_history, worst_history):
     # Displaying the chart
     print(f"{max_value:>6.2f} |", end="")
     print("-" * width)
-    for i, row in enumerate(grid):
-        print(f"{'':>6.2f} " + "".join(row))
+    for row in enumerate(grid):
+        print(f"{'':>6} | " + "".join(row))
     
     print(f"{min_value:>6.2f} |", end="")
     print("-" * width)

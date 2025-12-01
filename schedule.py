@@ -87,7 +87,7 @@ def fitness_function(schedule, detail=False):
 
         # Takes care of faciltators conflicts
         preferred = ACTIVITIES[act]['prefer']
-        other = ACTIVITIES[act].get("others")
+        other = ACTIVITIES[act].get("others") or ACTIVITIES[act].get("otheres") or []
 
         if f in preferred:
             log(f"{act} overseen by preferred {f}", +0.5)
@@ -130,7 +130,7 @@ def fitness_function(schedule, detail=False):
                 log(f"{act} equipment in {r}", +0.2)
             elif (need_lab != has_lab) or (need_proj and has_proj):
                 if need_lab != has_lab or need_proj != has_proj:
-                    log(f"{act} only one equipment requirement met in {r}" -0.1)
+                    log(f"{act} only one equipment requirement met in {r}", -0.1)
             else:
                 log(f"{act} equipment not met in {r}", -0.3)
     for f in FACILTATORS:
@@ -150,25 +150,26 @@ def fitness_function(schedule, detail=False):
                 log(f"Faciltator {f} underloaded (total {load})", -0.4)
         
         # Takes care of Time Slots Logic
-        fsched = sorted(fac_schedule[f], ket=lambda x: x["Time Index"])
+        fsched = sorted(fac_schedule[f], key=lambda x: x["Time Index"])
         for i in range(len(fsched)-1):
             t1_index = fsched[i]["Time Index"]
             t2_index = fsched[i+1]["Time Index"]
             r1 = fsched[i]["Room"]
             r2 = fsched[i+1]["Room"]
         
-        # Checks 
-        if abs(t1_index - t2_index) ==1: 
-            log(f"Faciltator {f} consecutive slots between {fsched[i]["activity"]} and {fsched[i+1]["activity"]}", +0.5)
+            # Checks 
+            if abs(t1_index - t2_index) ==1: 
+                log(f"Faciltator {f} consecutive slots between {fsched[i]['Activity']} and {fsched[i+1]['Activity']}", +0.5)
 
-            # Distance Check (Roman/Beach logic)
-            in_rb_1 = ROOMS[r1]['grouping'] # Updated key
-            in_rb_2 = ROOMS[r2]['grouping'] # Updated key
-            if in_rb_1 != in_rb_2:
-                log(f"Facilitator {f} consecutive distance issue ({r1}->{r2})", -0.4)
+                # Distance Check (Roman/Beach logic)
+                in_rb_1 = ROOMS[r1]['grouping'] # Updated key
+                in_rb_2 = ROOMS[r2]['grouping'] # Updated key
+                if in_rb_1 != in_rb_2:
+                    log(f"Facilitator {f} consecutive distance issue ({r1}->{r2})", -0.4)
+
     def get_act_data(name):
         """Retrieves the room and time data in genes"""
-        return genes[name][0], TIME_MAP[[genes][name][1]]
+        return genes[name][0], TIME_MAP[genes[name][1]]
     
     r101A, t101A = get_act_data("SLA101A")
     r101B, t101B = get_act_data("SLA101B")
@@ -184,8 +185,8 @@ def fitness_function(schedule, detail=False):
     if t191A == t191B: log(f"SLA 1919 sections same time", -0.5)
 
     # Cross checks (over the 101 adn 191 sections)
-    s101S = [("SLA101A", r101A, t101A), ("SLA101A", r101B, t101B)]
-    s191S = [("SLA191A", r191A, t191A), {"SLA191B", r191B, t191B}]
+    s101S = [("SLA101A", r101A, t101A), ("SLA101B", r101B, t101B)]
+    s191S = [("SLA191A", r191A, t191A), ("SLA191B", r191B, t191B)]
 
     for (act1, r101, t101) in s101S:
         for (act2, r191, t191) in s191S:

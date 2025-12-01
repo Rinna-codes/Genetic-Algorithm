@@ -254,6 +254,7 @@ def crossover(parent1, parent2):
     return child
 
 def mutate(schedule, rate):
+    """Mutates a genes (room, time, faciltator) with probablity rates"""
     for act in ACTIVITIES:
         if random.random() < rate:
             r_select = random.random()

@@ -63,7 +63,7 @@ def print_chart(best_history, avg_history, worst_history):
     print(f"{'':>6} 0" + " "*(width-10) + f"{num_generations} Generations")
 
 
-def report(final_best, best_history, avg_history, worst_history):
+def save_report(final_best, best_history, avg_history, worst_history):
     """Saves the report and best schedule to an output file"""
     with open(OUTPUT_FILE, "w") as f: 
         
@@ -72,7 +72,7 @@ def report(final_best, best_history, avg_history, worst_history):
         f.write(f"Date: {datetime.datetime.now()}\n")
         f.write(f"Generations Run: {len(best_history)}\n")
         f.write(f"Ginal Fitness Score: {final_best:.2f}\n\n")
-        
+
         f.write("---SCHEDULE---\n")
         f.write(str(final_best))
 

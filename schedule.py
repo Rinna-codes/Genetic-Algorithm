@@ -191,13 +191,25 @@ def fitness_function(schedule, detail=False):
             if diff == 1:
                 log(f"{act1}/{act2} consecutive slots", +0.5)
 
-            # Distance Check (Roman/Beach Logic)
-            in_rb_1 = ROOMS[r101]['grouping'] # Updated key
-            in_rb_2 = ROOMS[r191]['grouping'] # Updated key
-            if in_rb_1 != in_rb_2:
-                log(f"{act1}/{act2} consecutive distance issue ({r101}->{r191})", -0.4)
+                # Distance Check (Roman/Beach Logic)
+                in_rb_1 = ROOMS[r101]['grouping'] 
+                in_rb_2 = ROOMS[r191]['grouping']
+                if in_rb_1 != in_rb_2:
+                    log(f"{act1}/{act2} consecutive distance issue ({r101}->{r191})", -0.4)
+                    
             elif diff == 2: # Separated by 1 hour
                 log(f"{act1}/{act2} separated by 1 hr", +0.25)
             elif diff == 0: # Same time
                 log(f"{act1}/{act2} same time", -0.25)
     return score
+
+"""Genetic Algorithm Operations"""
+
+def softmax_selection(population, num_parents=2):
+    pass
+
+def crossover(parent1, parent2):
+    pass
+
+def mutate(schedule, rate):
+    pass

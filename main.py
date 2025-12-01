@@ -49,3 +49,32 @@ def main():
             imp_pct = ((best - best_history[-2] / abs(best_history[-2]))) * 100
 
         # display/print metrics
+        if gen % 10 == 0 or gen == MAX_GEN -1 or gen == 0:
+            print(f"{gen:<5} | {best:<8.2f} | {avg:<8.2f} | {worst:<8.2f} | {imp_pct:<8.2f} | {mutation_rate:.5f}")
+        # Adaptive mutation + stopping criteria 
+        if best > best_fintess_global + 1e-6:
+            best_fintess_global = best
+            generations_without_improve = 0
+        else:
+            generations_without_improve += 1
+        
+        # halve mutaiton if stagnant
+        if generations_without_improve >= THRESHOLD and mutation_rate > 1e-5:
+            mutation_rate /= 2
+            generations_without_improve = 0
+        
+        # stopping rule: Have to run 100 generations THEN check for greater than 1% average improvement
+        if gen >= 100:
+            window = 20
+            if len(avg_history) >= window:
+                avg_start = avg_history[-window]
+                avg_current = avg_history[-1]
+
+                avg_improvement_pct = 0.0
+                if avg_start != 0:
+                    avg_improvement_pct ==((avg_current -avg_start) / abs(avg_start)) * 100
+                
+                if avg_improvement_pct < 1.0 and avg_current >= avg_start:
+                    print(f"\nStopping Criteria was Met! Average fitness improvement ({avg_improvement_pct:.2f}%) over last {window} generationsis less than 1%.")
+                    break
+        

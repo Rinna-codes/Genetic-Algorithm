@@ -56,7 +56,7 @@ def print_chart(best_history, avg_history, worst_history):
     print(f"{max_value:>6.2f} |", end="")
     print("-" * width)
     for row in enumerate(grid):
-        print(f"{'':>6} | " + "".join(row))
+        print(f"{'':>6} | " + "".join(row[1]))
     
     print(f"{min_value:>6.2f} |", end="")
     print("-" * width)
@@ -71,13 +71,13 @@ def save_report(final_best, best_history, avg_history, worst_history):
         f.write("--- SLA SCHEDULE GENETIC ALGORITHM RESULTS ---\n")
         f.write(f"Date: {datetime.datetime.now()}\n")
         f.write(f"Generations Run: {len(best_history)}\n")
-        f.write(f"Ginal Fitness Score: {final_best:.2f}\n\n")
+        f.write(f"Final Fitness Score: {final_best.fitness:.2f}\n\n")
 
         f.write("---SCHEDULE---\n")
         f.write(str(final_best))
 
         f.write("\n\n---SCORE BREAKDOWN (CONSTRAINT VOLATIONS) ---\n")
-        for line in final_best.explaination:
+        for line in final_best.explain:
             f.write(line + "\n")
         
         f.write("\n\n---GENERATION HISOTRY---\n")

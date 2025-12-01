@@ -20,7 +20,7 @@ class Schedule:
         """Print out the schedule output"""
         lines = []
         # format the output information
-        lines.append(f"{"Activity" : < 10} | {"Room" : < 12} | {"Time" : < 6} | {"Faciltator"}") # put into lines to display
+        lines.append(f"{"Activity":<10} | {"Room":<12} | {"Time":<6} | {"Faciltator"}") # put into lines to display
         lines.append("*" * 45)
 
         sort_genes = sorted(self.genes.items(), key=lambda x: (TIME_MAP[x[1][1]], x[1][0])) # creates a list of tuples that is sorted by time slot and room name 
@@ -77,7 +77,7 @@ def fitness_function(schedule, detail=False):
     for act, (r, t, f) in genes.items():
         # Takes care of room conflicts 
         if len(room_time_map[r, t]) > 1:
-            log(f"Room Conflicts: {acts} shares a room {r} at {t}", -0.5)
+            log(f"Room Conflicts: {act} shares a room {r} at {t}", -0.5)
 
         # Room Size
         capacity = ROOMS[r]['capacity']
@@ -119,7 +119,7 @@ def fitness_function(schedule, detail=False):
             req_key = "SLA191"
 
         if req_key in EQUIPMENT_REQ:
-            need_lab = need_proj = EQUIPMENT_REQ[req_key]
+            need_lab, need_proj = EQUIPMENT_REQ[req_key]
             has_lab = ROOMS[r]["lab"]
             has_proj = ROOMS[r]["projector"]
 
@@ -128,9 +128,8 @@ def fitness_function(schedule, detail=False):
 
             if labs_met and proj_met:
                 log(f"{act} equipment in {r}", +0.2)
-            elif (need_lab != has_lab) or (need_proj and has_proj):
-                if need_lab != has_lab or need_proj != has_proj:
-                    log(f"{act} only one equipment requirement met in {r}", -0.1)
+            elif (need_lab and has_lab) or (need_proj and has_proj):
+                log(f"{act} only one equipment requirement met in {r}", -0.1)
             else:
                 log(f"{act} equipment not met in {r}", -0.3)
     for f in FACILTATORS:
@@ -146,8 +145,8 @@ def fitness_function(schedule, detail=False):
                 log(f"Faciltator {f} load {load} (Tyler exception was met)", 0.0)
             elif load < 3: 
                 log(f"Faciltator {f} underloaded (total {load})", -0.4)
-            elif load < 3:
-                log(f"Faciltator {f} underloaded (total {load})", -0.4)
+        elif load < 3:
+            log(f"Faciltator {f} underloaded (total {load})", -0.4)
         
         # Takes care of Time Slots Logic
         fsched = sorted(fac_schedule[f], key=lambda x: x["Time Index"])

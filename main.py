@@ -1,5 +1,5 @@
 # Main execution file 
-
+import copy
 from config_data import POP_SIZE, MAX_GEN, STARTING_MUT_RATE, THRESHOLD
 from schedule import Schedule, fitness_function, softmax_selection, crossover, mutate
 from report import print_chart, save_report
@@ -77,4 +77,22 @@ def main():
                 if avg_improvement_pct < 1.0 and avg_current >= avg_start:
                     print(f"\nStopping Criteria was Met! Average fitness improvement ({avg_improvement_pct:.2f}%) over last {window} generationsis less than 1%.")
                     break
-        
+
+    # Reproduction (crossover + mutate)
+    next_generation = []
+    
+    # Take the top 5%
+    num_elites = max(1, int(POP_SIZE * 0.05))
+    for i in range(num_elites):
+        next_generation.append(copy.deepcopy(population[i]))
+    
+    while len(next_generation) < POP_SIZE:
+        parents = softmax_selection(population, 2)
+        child = crossover(parents[0], parents[1])
+        mutate(child, mutation_rate)
+        child.fitness = fitness_function(child)
+        next_generation.append(child)
+    
+    population = next_generation
+
+    

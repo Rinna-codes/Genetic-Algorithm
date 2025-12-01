@@ -72,4 +72,17 @@ def report(final_best, best_history, avg_history, worst_history):
         f.write(f"Date: {datetime.datetime.now()}\n")
         f.write(f"Generations Run: {len(best_history)}\n")
         f.write(f"Ginal Fitness Score: {final_best:.2f}\n\n")
+        
+        f.write("---SCHEDULE---\n")
+        f.write(str(final_best))
 
+        f.write("\n\n---SCORE BREAKDOWN (CONSTRAINT VOLATIONS) ---\n")
+        for line in final_best.explaination:
+            f.write(line + "\n")
+        
+        f.write("\n\n---GENERATION HISOTRY---\n")
+        f.write("GENERATION, BEST, AVERAGE, WORST\n")
+        for i in range(len(best_history)):
+            f.write(f"{i}, {best_history[i]:.4f}, {avg_history[i]:.4f}, {worst_history[i]:.4f}\n")
+
+    print(f"\nRESULTS SAVED TO {OUTPUT_FILE}")

@@ -28,3 +28,24 @@ def main():
 
     print(f"\n {'GENERATIONS':<5} | {"BEST":<8} | {"AVERAGE":<8} | {"WORST":<8} | {"IMP %":<8} | {"MUTATE RATE"}")
     print("-" * 60)
+
+    # Genetic algorithm loop
+    for gen in range(MAX_GEN):
+        #sorting the easy or elite metrics
+        population.srt(key=lambda x: x.fitness, reverse=True)
+
+        best = population[0].fitness
+        worst = population[-1].fitness
+        avg = sum(index.fitness for ind in population) / POP_SIZE
+
+        # tracks history
+        best_history.append(best)
+        avg_history.append(avg)
+        worst_history.append(worst)
+
+        # improve on calculations
+        imp_pct = 0.0
+        if gen > 0 and best_history[-2] != 0:
+            imp_pct = ((best - best_history[-2] / abs(best_history[-2]))) * 100
+
+        # display/print metrics

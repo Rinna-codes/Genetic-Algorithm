@@ -1,3 +1,4 @@
+import datetime
 from config_data import OUTPUT_FILE
 
 def print_chart(best_history, avg_history, worst_history):
@@ -50,8 +51,25 @@ def print_chart(best_history, avg_history, worst_history):
         grid[height - 1 - row_w][col] = "-"
         grid[height - 1 - row_a][col] = "+"
         grid[height - 1 - row_b][col] = "#"
+    
+    # Displaying the chart
+    print(f"{max_value:>6.2f} |", end="")
+    print("-" * width)
+    for i, row in enumerate(grid):
+        print(f"{'':>6.2f} " + "".join(row))
+    
+    print(f"{min_value:>6.2f} |", end="")
+    print("-" * width)
+    print(f"{'':>6} 0" + " "*(width-10) + f"{num_generations} Generations")
 
 
 def report(final_best, best_history, avg_history, worst_history):
-    """Saves the report and best schefule to an output file"""
-    pass
+    """Saves the report and best schedule to an output file"""
+    with open(OUTPUT_FILE, "w") as f: 
+        
+        # Summary of the schedule results 
+        f.write("--- SLA SCHEDULE GENETIC ALGORITHM RESULTS ---\n")
+        f.write(f"Date: {datetime.datetime.now()}\n")
+        f.write(f"Generations Run: {len(best_history)}\n")
+        f.write(f"Ginal Fitness Score: {final_best:.2f}\n\n")
+

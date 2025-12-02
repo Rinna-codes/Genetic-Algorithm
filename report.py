@@ -3,6 +3,7 @@ from config_data import OUTPUT_FILE
 
 def print_chart(best_history, avg_history, worst_history):
     """Create the CLI chart for Best, Average, and Worst fitness scores"""
+
     if not best_history: 
         print("\nNot enough data to make chart")
         return 

@@ -1,10 +1,11 @@
-# Main execution file 
 import copy
 from config_data import POP_SIZE, MAX_GEN, STARTING_MUT_RATE, THRESHOLD
 from schedule import Schedule, fitness_function, softmax_selection, crossover, mutate
 from report import print_chart, save_report
 
 def main():
+    """Main execute of program"""
+
     # Starting menu+message
     print(f"---SLA GENETIC SCHEDULER---")
     print(f"POPULATION SIZE: {POP_SIZE}, MAX GENERATIONS {MAX_GEN}")
@@ -26,7 +27,7 @@ def main():
     generations_without_improve = 0 
     best_fintess_global = -float('inf')
 
-    print(f"\n {'GENERATIONS':<5} | {"BEST":<8} | {"AVERAGE":<8} | {"WORST":<8} | {"IMP %":<8} | {"MUTATE RATE"}")
+    print(f"\n {'GENERATIONS':<4} | {"BEST":<7} | {"AVERAGE":<7} | {"WORST":<7} | {"IMP %":<7} | {"MUTATE RATE"}")
     print("-" * 60)
 
     # Genetic algorithm loop
@@ -36,7 +37,7 @@ def main():
 
         best = population[0].fitness
         worst = population[-1].fitness
-        avg = sum(index.fitness for ind in population) / POP_SIZE
+        avg = sum(index.fitness for index in population) / POP_SIZE
 
         # tracks history
         best_history.append(best)
@@ -45,8 +46,10 @@ def main():
 
         # improve on calculations
         imp_pct = 0.0
-        if gen > 0 and best_history[-2] != 0:
-            imp_pct = ((best - best_history[-2] / abs(best_history[-2]))) * 100
+        if gen > 0:
+            prev_best = best_history[-2]
+            if abs(prev_best) > 1e-6:
+                 imp_pct = ((best - prev_best) / abs(prev_best)) * 100
 
         # display/print metrics
         if gen % 10 == 0 or gen == MAX_GEN -1 or gen == 0:
@@ -72,32 +75,37 @@ def main():
 
                 avg_improvement_pct = 0.0
                 if avg_start != 0:
-                    avg_improvement_pct ==((avg_current -avg_start) / abs(avg_start)) * 100
+                    avg_improvement_pct = ((avg_current -avg_start) / abs(avg_start)) * 100
                 
                 if avg_improvement_pct < 1.0 and avg_current >= avg_start:
                     print(f"\nStopping Criteria was Met! Average fitness improvement ({avg_improvement_pct:.2f}%) over last {window} generationsis less than 1%.")
                     break
 
-    # Reproduction (crossover + mutate)
-    next_generation = []
-    
-    # Take the top 5%
-    num_elites = max(1, int(POP_SIZE * 0.05))
-    for i in range(num_elites):
-        next_generation.append(copy.deepcopy(population[i]))
-    
-    while len(next_generation) < POP_SIZE:
-        parents = softmax_selection(population, 2)
-        child = crossover(parents[0], parents[1])
-        mutate(child, mutation_rate)
-        child.fitness = fitness_function(child)
-        next_generation.append(child)
-    
-    population = next_generation
+        # Reproduction (crossover + mutate)
+        next_generation = []
+        
+        # Take the top 5%
+        num_elites = max(1, int(POP_SIZE * 0.05))
+        for i in range(num_elites):
+            next_generation.append(copy.deepcopy(population[i]))
+        
+        while len(next_generation) < POP_SIZE:
+            parents = softmax_selection(population, 2)
+            child = crossover(parents[0], parents[1])
+            mutate(child, mutation_rate)
+            child.fitness = fitness_function(child)
+            next_generation.append(child)
+        
+        population = next_generation
 
     # Saving the report 
     population.sort(key=lambda x: x.fitness, reverse=True)
     final_best = population[0]
+
+    # Final best score is reflected in the history list
+    if len(best_history) > 0 and final_best.fitness > best_history[-1]:
+        best_history[-1] = final_best.fitness
+        avg_history[-1] = sum(ind.fitness for ind in population) / POP_SIZE 
 
     # claculate the best schdeule 
     fitness_function(final_best, detail=True)

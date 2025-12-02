@@ -33,6 +33,7 @@ class Schedule:
 def get_room_capacity(enrollment, capacity):
     """Calulates the score based on the room size"""
     used_space_rate = enrollment / capacity 
+    
     if capacity < enrollment: 
         return -0.5
     elif used_space_rate >= 0.83:
@@ -131,7 +132,11 @@ def fitness_function(schedule, detail=False):
             elif (need_lab and has_lab) or (need_proj and has_proj):
                 log(f"{act} only one equipment requirement met in {r}", -0.1)
             else:
-                log(f"{act} equipment not met in {r}", -0.3)
+                if need_lab == False and need_proj == False:
+                    log(f"{act} no equipment needed (penalty neutralized)", 0.0)
+                else:
+                    log(f"{act} equipment not met in {r}", -0.3)
+
     for f in FACILTATORS:
         load = fac_total_load[f]
 
@@ -181,7 +186,7 @@ def fitness_function(schedule, detail=False):
 
     # 191 A X 191 B
     if abs(t191A - t191B) > 3: log(f"SLA 191 sections > 4 hours apart", +0.5)
-    if t191A == t191B: log(f"SLA 1919 sections same time", -0.5)
+    if t191A == t191B: log(f"SLA 191 sections same time", -0.5)
 
     # Cross checks (over the 101 adn 191 sections)
     s101S = [("SLA101A", r101A, t101A), ("SLA101B", r101B, t101B)]

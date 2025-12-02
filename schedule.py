@@ -33,7 +33,7 @@ class Schedule:
 def get_room_capacity(enrollment, capacity):
     """Calulates the score based on the room size"""
     used_space_rate = enrollment / capacity 
-    
+
     if capacity < enrollment: 
         return -0.5
     elif used_space_rate >= 0.83:
@@ -52,7 +52,7 @@ def fitness_function(schedule, detail=False):
 
     score = 0.0 # intitial start
     genes = schedule.genes
-    if detail: schedule.explain = [] # if true then clear the explain attribute into am empty list 
+    if detail: schedule.explain = [] # if true then clear the explain attribute into an empty list 
 
     def log(message, value):
         """Accumlate the fitness score & log records of how score was reached"""

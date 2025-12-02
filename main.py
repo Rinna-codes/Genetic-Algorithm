@@ -27,7 +27,7 @@ def main():
     generations_without_improve = 0 
     best_fintess_global = -float('inf')
 
-    print(f"\n {'GENERATIONS':<4} | {"BEST":<7} | {"AVERAGE":<7} | {"WORST":<7} | {"IMP %":<7} | {"MUTATE RATE"}")
+    print(f"\n {'GEN':<5} | {"BEST":<8} | {"AVG":<8} | {"WORST":<8} | {"IMP %":<8} | {"MUTATE RATE"}")
     print("-" * 60)
 
     # Genetic algorithm loop

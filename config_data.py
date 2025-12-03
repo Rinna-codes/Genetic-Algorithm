@@ -16,7 +16,7 @@ ACTIVITIES = {
     "SLA191A" : {"enrollment": 45, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]},
     "SLA191B" : {"enrollment" : 40, "prefer" : ["Glen", "Lock", "Banks"], "others" : ["Numen", "Richards", "Shaw", "Singer"]},
     "SLA201" : {"enrollment" : 60, "prefer" : ["Glen", "Banks", "Zeldin", "Lock", "Singer"], "others" : ["Richards", "Uther", "Shaw"]},
-    "SLA291" : {"enrollment" : 50, "prefer" : ["Glen", "Banks", "Zeldin", "Lock", "Singer"], "otheres" : ["Richards", "Uther", "Shaw"]},
+    "SLA291" : {"enrollment" : 50, "prefer" : ["Glen", "Banks", "Zeldin", "Lock", "Singer"], "others" : ["Richards", "Uther", "Shaw"]},
     "SLA303" : {"enrollment": 25, "prefer" : ["Glen", "Zeldin"], "others" : ["Banks"]},
     "SLA304" : {"enrollment" : 20, "prefer" : ["Singer", "Uther"], "others" : ["Richards"]},
     "SLA394" : {"enrollment" : 15, "prefer" : ["Tyler", "Singer"], "others" : ["Richards", "Zeldin"]},

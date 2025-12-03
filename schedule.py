@@ -59,6 +59,7 @@ def fitness_function(schedule, detail=False):
         nonlocal score
         score += value 
         if detail: schedule.explain.append(f"{value:+.2f}: {message}") 
+
     room_time_map = {}
     fac_time_map = {}
     fac_total_load = {f: 0 for f in FACILTATORS} # tracks the total workload for each faciltator 
@@ -88,7 +89,7 @@ def fitness_function(schedule, detail=False):
 
         # Takes care of faciltators conflicts
         preferred = ACTIVITIES[act]['prefer']
-        other = ACTIVITIES[act].get("others") or ACTIVITIES[act].get("otheres") or []
+        other = ACTIVITIES[act].get("others") or []
 
         if f in preferred:
             log(f"{act} overseen by preferred {f}", +0.5)

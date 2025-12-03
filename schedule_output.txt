@@ -1,0 +1,189 @@
+--- SLA SCHEDULE GENETIC ALGORITHM RESULTS ---
+Date: 2025-12-02 18:03:32.384133
+Generations Run: 101
+Final Fitness Score: 16.10
+
+---SCHEDULE---
+Activity   | Room         | Time   | Faciltator
+*********************************************
+SLA451     | Frank 119    | 10 AM  | Banks
+SLA201     | Roman 216    | 11 AM  | Banks
+SLA304     | Beach 301    | 12 PM  | Banks
+SLA101A    | Loft 310     | 12 PM  | Lock
+SLA291     | Loft 206     | 1 PM   | Lock
+SLA191A    | Loft 310     | 1 PM   | Singer
+SLA394     | Beach 201    | 2 PM   | Singer
+SLA101B    | Loft 310     | 2 PM   | Lock
+SLA303     | Beach 301    | 3 PM   | Singer
+SLA191B    | Loft 310     | 3 PM   | Lock
+SLA449     | Slatter 003  | 3 PM   | Tyler
+
+---SCORE BREAKDOWN (CONSTRAINT VOLATIONS) ---
++0.80: SLA101A room size in Loft 310 (48 vs 40)
++0.50: SLA101A overseen by preferred Lock
++0.20: Lock has only 1 activity at 12 PM
++0.20: SLA101B room size in Loft 310 (48 vs 35)
++0.50: SLA101B overseen by preferred Lock
++0.20: Lock has only 1 activity at 2 PM
++0.80: SLA191A room size in Loft 310 (48 vs 45)
++0.20: SLA191A overseen by other listed Singer
++0.20: Singer has only 1 activity at 1 PM
++0.20: SLA191A equipment in Loft 310
++0.80: SLA191B room size in Loft 310 (48 vs 40)
++0.50: SLA191B overseen by preferred Lock
++0.20: Lock has only 1 activity at 3 PM
++0.20: SLA191B equipment in Loft 310
++0.50: SLA201 room size in Roman 216 (80 vs 60)
++0.50: SLA201 overseen by preferred Banks
++0.20: Banks has only 1 activity at 11 AM
+-0.10: Faciltator Banks avoiding 11 AM
++0.80: SLA291 room size in Loft 206 (55 vs 50)
++0.50: SLA291 overseen by preferred Lock
++0.20: Lock has only 1 activity at 1 PM
+-0.30: SLA291 equipment not met in Loft 206
++0.80: SLA303 room size in Beach 301 (25 vs 25)
+-0.10: SLA303 overseen by unlisted Singer
++0.20: Singer has only 1 activity at 3 PM
++0.20: SLA303 equipment in Beach 301
++0.50: SLA304 room size in Beach 301 (25 vs 20)
+-0.10: SLA304 overseen by unlisted Banks
++0.20: Banks has only 1 activity at 12 PM
++0.10: Faciltator Banks time preference matches at 12 PM
+-0.10: SLA304 only one equipment requirement met in Beach 301
++0.80: SLA394 room size in Beach 201 (18 vs 15)
++0.50: SLA394 overseen by preferred Singer
++0.20: Singer has only 1 activity at 2 PM
++0.80: SLA449 room size in Slatter 003 (32 vs 30)
++0.50: SLA449 overseen by preferred Tyler
++0.20: Tyler has only 1 activity at 3 PM
++0.10: Faciltator Tyler time preference matches at 3 PM
+-0.10: SLA449 only one equipment requirement met in Slatter 003
++0.80: SLA451 room size in Frank 119 (95 vs 90)
++0.50: SLA451 overseen by preferred Banks
++0.20: Banks has only 1 activity at 10 AM
++0.10: Faciltator Banks time preference matches at 10 AM
++0.20: SLA451 equipment in Frank 119
++0.50: Faciltator Lock consecutive slots between SLA101A and SLA291
++0.50: Faciltator Lock consecutive slots between SLA291 and SLA101B
++0.50: Faciltator Lock consecutive slots between SLA101B and SLA191B
+-0.40: Faciltator Glen underloaded (total 0)
++0.50: Faciltator Banks consecutive slots between SLA451 and SLA201
+-0.40: Facilitator Banks consecutive distance issue (Frank 119->Roman 216)
++0.50: Faciltator Banks consecutive slots between SLA201 and SLA304
+-0.40: Faciltator Richards underloaded (total 0)
+-0.40: Faciltator Shaw underloaded (total 0)
++0.50: Faciltator Singer consecutive slots between SLA191A and SLA394
+-0.40: Facilitator Singer consecutive distance issue (Loft 310->Beach 201)
++0.50: Faciltator Singer consecutive slots between SLA394 and SLA303
+-0.40: Faciltator Uther underloaded (total 0)
++0.00: Faciltator Tyler load 1 (Tyler exception was met)
+-0.40: Faciltator Numen underloaded (total 0)
+-0.40: Faciltator Zeldin underloaded (total 0)
++0.50: SLA101A/SLA191A consecutive slots
++0.50: SLA101B/SLA191A consecutive slots
++0.50: SLA101B/SLA191B consecutive slots
+
+
+---GENERATION HISOTRY---
+GENERATION, BEST, AVERAGE, WORST
+0, 1.5000, -4.1830, -12.0000
+1, 6.6000, -0.6131, -6.8000
+2, 11.0000, 3.1187, -4.0000
+3, 11.4000, 7.6222, 0.9000
+4, 11.7000, 10.3475, 2.9000
+5, 11.8000, 10.7823, 7.3000
+6, 12.3000, 10.9028, 7.6000
+7, 12.4000, 10.9688, 7.3000
+8, 12.7000, 11.1139, 6.4000
+9, 13.8000, 11.4771, 7.8000
+10, 13.8000, 11.9763, 8.2000
+11, 14.4000, 12.2801, 8.6000
+12, 14.4000, 12.7225, 8.6000
+13, 14.4000, 13.2303, 9.4000
+14, 14.4000, 13.5520, 8.5000
+15, 14.4000, 13.7774, 10.0000
+16, 14.4000, 13.9791, 10.3000
+17, 14.4000, 14.0765, 11.1000
+18, 14.4000, 14.1352, 10.6000
+19, 14.4000, 14.2160, 9.5000
+20, 14.4000, 14.1975, 10.3000
+21, 14.4000, 14.2448, 8.7000
+22, 14.4000, 14.2473, 10.6000
+23, 14.4000, 14.1912, 11.1000
+24, 14.4000, 14.2332, 10.6000
+25, 14.5000, 14.2491, 11.5000
+26, 14.5000, 14.2846, 11.6000
+27, 14.5000, 14.2262, 9.7000
+28, 14.5000, 14.2364, 10.7500
+29, 14.5000, 14.2422, 10.6000
+30, 14.5000, 14.2722, 10.6000
+31, 14.5000, 14.2618, 10.6000
+32, 14.5000, 14.2686, 11.1000
+33, 14.5000, 14.2591, 11.3000
+34, 14.5000, 14.2801, 11.9000
+35, 14.5000, 14.2367, 10.6000
+36, 14.5000, 14.2967, 10.6000
+37, 14.5000, 14.3139, 10.4000
+38, 14.5000, 14.3207, 10.7000
+39, 14.5000, 14.3070, 10.6000
+40, 14.5000, 14.3610, 11.9000
+41, 14.5000, 14.3150, 11.4000
+42, 14.5000, 14.3451, 10.6000
+43, 14.5000, 14.3598, 11.2000
+44, 14.5000, 14.3524, 11.8000
+45, 14.5000, 14.3252, 9.4000
+46, 14.5000, 14.3716, 11.2000
+47, 14.5000, 14.3692, 11.7000
+48, 14.5000, 14.3871, 10.7000
+49, 14.5000, 14.3905, 11.6000
+50, 14.5000, 14.3837, 10.6000
+51, 14.5000, 14.3889, 10.7000
+52, 14.5000, 14.4095, 11.7000
+53, 14.5000, 14.3960, 11.2000
+54, 14.5000, 14.4120, 11.1000
+55, 14.5000, 14.4193, 12.7000
+56, 14.5000, 14.3914, 10.7000
+57, 14.5000, 14.4151, 10.7000
+58, 14.5000, 14.4470, 10.7000
+59, 14.5000, 14.4591, 11.1000
+60, 14.5000, 14.4405, 11.7000
+61, 14.5000, 14.4506, 12.3000
+62, 14.5000, 14.4464, 11.8000
+63, 14.5000, 14.4273, 11.1000
+64, 14.5000, 14.4395, 10.7000
+65, 16.1000, 14.4306, 10.7000
+66, 16.1000, 14.4314, 10.6000
+67, 16.1000, 14.4811, 11.1000
+68, 16.1000, 14.8898, 12.2000
+69, 16.1000, 15.5306, 12.4000
+70, 16.1000, 15.8577, 11.7000
+71, 16.1000, 16.0025, 12.3000
+72, 16.1000, 16.0445, 13.3000
+73, 16.1000, 16.0114, 12.8000
+74, 16.1000, 16.0091, 12.7000
+75, 16.1000, 15.9956, 11.5000
+76, 16.1000, 16.0158, 12.1000
+77, 16.1000, 16.0122, 12.3000
+78, 16.1000, 16.0226, 13.5000
+79, 16.1000, 16.0182, 12.3000
+80, 16.1000, 16.0002, 12.3000
+81, 16.1000, 16.0185, 12.3000
+82, 16.1000, 15.9863, 12.8000
+83, 16.1000, 16.0327, 12.8000
+84, 16.1000, 15.9757, 12.5000
+85, 16.1000, 16.0135, 12.7000
+86, 16.1000, 16.0569, 12.5000
+87, 16.1000, 16.0436, 13.3000
+88, 16.1000, 16.0808, 14.7000
+89, 16.1000, 16.0658, 12.8000
+90, 16.1000, 16.0647, 13.7000
+91, 16.1000, 16.0403, 12.7000
+92, 16.1000, 16.0421, 13.7000
+93, 16.1000, 16.0403, 12.3000
+94, 16.1000, 16.0477, 14.4000
+95, 16.1000, 16.0369, 13.3000
+96, 16.1000, 16.0468, 13.2000
+97, 16.1000, 16.0609, 13.8000
+98, 16.1000, 16.0552, 13.8000
+99, 16.1000, 16.0584, 13.8000
+100, 16.1000, 16.0602, 13.8000

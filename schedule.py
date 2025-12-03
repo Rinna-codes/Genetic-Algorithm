@@ -105,7 +105,7 @@ def fitness_function(schedule, detail=False):
         else:
             log(f"{f} double booked at {t} for {slot_load} activites", -0.2)
         
-        # Facilitators Time Slot Preferences 
+        # Facilitators Time Slot Preferences (likes and avoidances)
         if f in FAC_TIME_PREFS:
             prefs = FAC_TIME_PREFS[f]
 
@@ -132,6 +132,7 @@ def fitness_function(schedule, detail=False):
                 log(f"{act} equipment in {r}", +0.2)
             elif (need_lab and has_lab) or (need_proj and has_proj):
                 log(f"{act} only one equipment requirement met in {r}", -0.1)
+            #Added else statement with the help of AI
             else:
                 if need_lab == False and need_proj == False:
                     log(f"{act} no equipment needed (penalty neutralized)", 0.0)
@@ -154,7 +155,7 @@ def fitness_function(schedule, detail=False):
         elif load < 3:
             log(f"Faciltator {f} underloaded (total {load})", -0.4)
         
-        # Takes care of Time Slots Logic
+        # Takes care of Time Slots
         fsched = sorted(fac_schedule[f], key=lambda x: x["Time Index"])
         for i in range(len(fsched)-1):
             t1_index = fsched[i]["Time Index"]
@@ -166,9 +167,9 @@ def fitness_function(schedule, detail=False):
             if abs(t1_index - t2_index) ==1: 
                 log(f"Faciltator {f} consecutive slots between {fsched[i]['Activity']} and {fsched[i+1]['Activity']}", +0.5)
 
-                # Distance Check (Roman/Beach logic)
-                in_rb_1 = ROOMS[r1]['grouping'] # Updated key
-                in_rb_2 = ROOMS[r2]['grouping'] # Updated key
+                # Distance Check (Roman/Beach), helped fix with AI
+                in_rb_1 = ROOMS[r1]['grouping']
+                in_rb_2 = ROOMS[r2]['grouping']
                 if in_rb_1 != in_rb_2:
                     log(f"Facilitator {f} consecutive distance issue ({r1}->{r2})", -0.4)
 

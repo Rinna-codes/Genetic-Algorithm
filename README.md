@@ -3,4 +3,7 @@ A direct implementation of the searching algorithm, Genetic Algorithm in searchi
 
 **It was built using:**
 * Python
-* 
+* Modules: Math
+
+##Features##
+...

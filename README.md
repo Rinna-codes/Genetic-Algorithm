@@ -5,5 +5,5 @@ A direct implementation of the searching algorithm, Genetic Algorithm in searchi
 * Python
 * Modules: Math
 
-## Features
-...
+## Scenario For Project
+

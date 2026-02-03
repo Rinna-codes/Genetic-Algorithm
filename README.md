@@ -6,4 +6,3 @@ A direct implementation of the searching algorithm, Genetic Algorithm in searchi
 * Modules: Math
 
 ## Scenario For Project
-
